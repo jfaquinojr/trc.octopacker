@@ -41,9 +41,9 @@ nuget install TRC.Web -Source !PATH_TRC!\trc.web\obj\octopacked\ -OutputDirector
 
 
 REM ---------- clear publish folder ----------
-REM if not exist !PATH_WWW!\NUL mkdir !PATH_WWW!
+if not exist !PATH_WWW!\NUL mkdir !PATH_WWW!
 REM del /q "!PATH_WWW!\*"
-REM FOR /D !!p IN ("!PATH_WWW!\*.*") DO rmdir "!!p" /s /q
+REM FOR /D %%p IN ("!PATH_WWW!\*.*") DO rmdir "%%p" /s /q
 
 
 
@@ -54,10 +54,13 @@ CD /D !PATH_TEMP!
 FOR /D %%a IN (*) DO (
 	REN %%a !PUBLISHFOLDER!
 	ECHO.
-	ECHO *** 4) ROBOCOPY !PATH_TEMP!\!PUBLISHFOLDER! TO !PATH_WWW! ***
+	ECHO *** "4) ROBOCOPY !PATH_TEMP!\!PUBLISHFOLDER! TO !PATH_WWW!" ***
 	ECHO.
 	robocopy !PUBLISHFOLDER! !PATH_WWW! /E /IS /MOVE /PURGE /NFL /NDL /NJH /NC /NS /NP
 )
+
+if not exist "!PATH_WWW!\obj\NUL" mkdir "!PATH_WWW!\obj"
+if not exist "!PATH_WWW!\Environment Specific Configs\NUL" mkdir "!PATH_WWW!\Environment Specific Configs"
 
 cd !CURRENT_PATH!
 

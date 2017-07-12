@@ -40,6 +40,9 @@ ECHO ************************
 ECHO.
 ECHO *** 1) OCTOPACKING !PATH_TRC!\trc.web\trc.web.csproj ***
 ECHO.
+if not exist "!PATH_TRC!\obj\NUL" mkdir "!PATH_TRC!\obj"
+if not exist "!PATH_TRC!\Environment Specific Configs\NUL" mkdir "!PATH_TRC!\Environment Specific Configs"
+if not exist "!PATH_TRC!\Environment Specific Configs\TRC.Web" mkdir "!PATH_TRC!\Environment Specific Configs\TRC.Web"
 "!ProgramFiles(x86)!\MSBuild\14.0\Bin\MSBuild.exe" !PATH_TRC!\trc.web\trc.web.csproj /t:Build /v:m /p:Configuration=Release /p:RunOctoPack=true /p:OctoPackEnforceAddingFiles=true "/p:OctoPackNuGetProperties=prefix="
 
 
@@ -61,8 +64,8 @@ nuget install TRC.Web -Source !PATH_TRC!\trc.web\obj\octopacked\ -OutputDirector
 
 REM ---------- clear publish folder ----------
 if not exist !PATH_WWW!\NUL mkdir !PATH_WWW!
-REM del /q "!PATH_WWW!\*"
-REM FOR /D %%p IN ("!PATH_WWW!\*.*") DO rmdir "%%p" /s /q
+del /q "!PATH_WWW!\*"
+FOR /D %%p IN ("!PATH_WWW!\*.*") DO rmdir "%%p" /s /q
 
 
 
